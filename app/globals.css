@@ -8,6 +8,18 @@
   --background-end-rgb: 0, 0, 0;
 }
 
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
