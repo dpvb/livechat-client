@@ -2,7 +2,7 @@
 
 import { socket } from "@/lib/socket";
 import { Payload } from "@/types/types";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState, useRef } from "react";
 
 export default function Home() {
   const [isConnected, setIsConnected] = useState(false);
@@ -11,10 +11,18 @@ export default function Home() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Payload[]>([]);
 
+  const messageEndRef = useRef<HTMLDivElement>(null);
+
   function generateRandomUser() {
     const randomUser = Math.floor(Math.random() * 1000);
     return `brownie${randomUser}`;
   }
+
+  useEffect(() => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   useEffect(() => {
     setUsername(generateRandomUser());
@@ -77,6 +85,7 @@ export default function Home() {
               <span>{payload.message}</span>
             </div>
           ))}
+          <div ref={messageEndRef} />
         </div>
         <form onSubmit={sendMessage} className="flex gap-2 py-2 px-2">
           <input
